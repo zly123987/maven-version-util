@@ -50,6 +50,13 @@ public class CheckInRange {
     }
 
     public boolean check_in_range(String version, String versionrange){
+        String tmp = versionrange.replaceAll("\\[|\\]|\\(|\\)|,", "");
+        if (tmp.length()==versionrange.length()){
+            if (version.equals(versionrange))
+                return true;
+            else
+                return false;
+        }
 //        System.out.println(version + "   " +  versionrange);
         ComparableVersion c1 = new ComparableVersion(version);
         VersionRange vr = null;
@@ -60,7 +67,7 @@ public class CheckInRange {
             e.printStackTrace();
         }
         if (vr != null) {
-            return vr.containsVersion( new DefaultArtifactVersion(version));
+            return vr.containsVersion(new DefaultArtifactVersion(version));
         }else{
             return false;
         }
